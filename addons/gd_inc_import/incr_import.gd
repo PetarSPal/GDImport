@@ -2,7 +2,6 @@
 extends EditorPlugin
 
 var dock: Node
-var default 
 
 func _enter_tree() -> void:
 	dock = preload("res://addons/gd_inc_import/import_dock.tscn").instantiate()

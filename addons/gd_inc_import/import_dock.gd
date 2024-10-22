@@ -3,7 +3,6 @@ extends Control
 const FILE_DIALOG = preload("res://addons/gd_inc_import/file_dialog.tscn")
 var file_dialog: FileDialog
 var dest_dialog: FileDialog
-var godot_dialog: FileDialog
 var files: PackedStringArray
 var dir: String
 var godot: String
@@ -30,23 +29,27 @@ func _on_select_files() -> void:
 	file_dialog.files_selected.connect(_on_submit_selection)
 	file_dialog.show()
 	add_child(file_dialog)
+
+	
+func _on_submit_selection(files: PackedStringArray) -> void:
+	self.files = files
+	for file in files:
+		filenames_list.add_text(file + "\n")
+	file_dialog.hide()
+	remove_child(file_dialog)
+	file_dialog.queue_free()
 	
 func _on_select_destination() -> void:
 	current_desination.clear()
 	godot_destination.clear()
+	self.dir = ""
+	self.godot = ""
 	dest_dialog = FILE_DIALOG.instantiate()
 	dest_dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	dest_dialog.dir_selected.connect(_on_submit_destination)
 	dest_dialog.show()
 	add_child(dest_dialog)
-	
-func _on_submit_selection(files: PackedStringArray) -> void:
-	self.files = files
-	for file in files:
-		filenames_list.text += file + "\n"
-	file_dialog.hide()
-	file_dialog.queue_free()
-	
+
 func _on_submit_destination(dir: String):
 	if dir.begins_with(current_project):
 		push_error("Cannot import incrementally to currently running project, run plugin as separate project.")
@@ -58,15 +61,15 @@ func _on_submit_destination(dir: String):
 		push_error("Destination is not godot project subfolder, missing project.godot file!")
 		return
 	self.dir = dir
-		
-	current_desination.text = dir
+	current_desination.add_text(dir)
 	dest_dialog.hide()
+	remove_child(dest_dialog)
 	dest_dialog.queue_free()
 
 func _find_godot(projdir: String) -> bool:
 	if FileAccess.file_exists(projdir + "/" + "project.godot"):
 		self.godot = projdir
-		godot_destination.text = projdir
+		godot_destination.add_text(projdir)
 		print("Found project dir: " + projdir)
 		return true
 	else:
