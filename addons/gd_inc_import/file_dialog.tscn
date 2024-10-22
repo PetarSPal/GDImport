@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c4lxi0c4f8xus"]
+
+[node name="FileDialog" type="FileDialog"]
+auto_translate_mode = 1
+disable_3d = true
+title = "Open File(s)"
+initial_position = 1
+size = Vector2i(640, 480)
+ok_button_text = "Open"
+file_mode = 1
+access = 2

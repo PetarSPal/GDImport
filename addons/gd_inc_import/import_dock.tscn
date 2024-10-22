@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj4uqcojh7t0a"]
+
+[ext_resource type="Script" path="res://addons/gd_inc_import/import_dock.gd" id="1_7dwxj"]
+
+[node name="IncrImport" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7dwxj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 198.0
+offset_bottom = 358.0
+
+[node name="Notes" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(238, 77)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "Run as a separate project.
+Close Godot instances of the active project before importing (to stop auto-import)
+Involves admin file operations, make backups before using. Only tested on Win."
+autowrap_mode = 3
+
+[node name="Files" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Files to import:"
+
+[node name="FilenamesList" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 57.535)
+layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="Destination" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Destination:"
+
+[node name="CurrentDesination" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="_godot" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Project"
+
+[node name="godotDestination" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SelectFiles" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "select files"
+
+[node name="SelectDestination" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "select destination"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Batch" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120.57, 0)
+layout_mode = 2
+min_value = 1.0
+value = 10.0
+update_on_text_changed = true
+prefix = "Batch of"
+custom_arrow_step = 1.0
+
+[node name="ImportFiles" type="Button" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(113.24, 0)
+layout_mode = 2
+text = "import"
