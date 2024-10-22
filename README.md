@@ -1,2 +1,2 @@
-# GDImport
+# GDIncImport
 Incremental imports for Godot
